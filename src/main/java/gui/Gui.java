@@ -1,0 +1,103 @@
+package gui;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import javax.swing.JButton;
+
+public class Gui {
+
+	private JFrame frmMQTTLogin;
+	private JTextField txtUsername;
+	private JTextField txtPasswort;
+	private JTextField txtServerIP;
+	private JTextField txtPort;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Gui window = new Gui();
+					window.frmMQTTLogin.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Gui() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmMQTTLogin = new JFrame();
+		frmMQTTLogin.setTitle("MQTT-Login");
+		frmMQTTLogin.setBounds(100, 100, 400, 400);
+		frmMQTTLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMQTTLogin.getContentPane().setLayout(null);
+		
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setBounds(30, 30, 70, 20);
+		frmMQTTLogin.getContentPane().add(lblUsername);
+		
+		JLabel lblPasswort = new JLabel("Passwort:");
+		lblPasswort.setBounds(30, 70, 70, 20);
+		frmMQTTLogin.getContentPane().add(lblPasswort);
+		
+		JLabel lblServerIP = new JLabel("Server IP:");
+		lblServerIP.setHorizontalAlignment(SwingConstants.LEFT);
+		lblServerIP.setBounds(30, 110, 70, 20);
+		frmMQTTLogin.getContentPane().add(lblServerIP);
+		
+		JLabel lblPort = new JLabel("Port:");
+		lblPort.setBounds(30, 150, 70, 20);
+		frmMQTTLogin.getContentPane().add(lblPort);
+		
+		txtUsername = new JTextField();
+		txtUsername.setBounds(110, 30, 240, 20);
+		frmMQTTLogin.getContentPane().add(txtUsername);
+		txtUsername.setColumns(10);
+		
+		txtPasswort = new JTextField();
+		txtPasswort.setColumns(10);
+		txtPasswort.setBounds(110, 70, 240, 20);
+		frmMQTTLogin.getContentPane().add(txtPasswort);
+		
+		txtServerIP = new JTextField();
+		txtServerIP.setColumns(10);
+		txtServerIP.setBounds(110, 110, 240, 20);
+		frmMQTTLogin.getContentPane().add(txtServerIP);
+		
+		txtPort = new JTextField();
+		txtPort.setColumns(10);
+		txtPort.setBounds(110, 150, 240, 20);
+		frmMQTTLogin.getContentPane().add(txtPort);
+		
+		JRadioButton rdbtnVerschluesselt = new JRadioButton("verschlüsselt");
+		rdbtnVerschluesselt.setBounds(30, 190, 130, 20);
+		frmMQTTLogin.getContentPane().add(rdbtnVerschluesselt);
+		
+		JRadioButton rdbtnUnverschluesselt = new JRadioButton("unverschlüsselt");
+		rdbtnUnverschluesselt.setBounds(30, 230, 130, 20);
+		frmMQTTLogin.getContentPane().add(rdbtnUnverschluesselt);
+		
+		JButton btnWeiter = new JButton("Weiter");
+		btnWeiter.setBounds(30, 270, 100, 25);
+		frmMQTTLogin.getContentPane().add(btnWeiter);
+	}
+}
