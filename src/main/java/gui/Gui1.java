@@ -1,20 +1,19 @@
 package gui;
 
-import java.awt.EventQueue;
-import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-public class Gui1 {
+import Data.Singleton;
+
+public class Gui1 extends Thread {
 
 	private JFrame frmMQTTLogin;
 	private JTextField txtUsername;
@@ -25,18 +24,18 @@ public class Gui1 {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Gui1 window = new Gui1();
-					window.frmMQTTLogin.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Gui1 window = new Gui1();
+//					window.frmMQTTLogin.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
@@ -86,15 +85,18 @@ public class Gui1 {
 		txtServerIP = new JTextField();
 		txtServerIP.setColumns(10);
 		txtServerIP.setBounds(110, 110, 240, 20);
+		txtServerIP.setText("test.mosquitto.org");
 		frmMQTTLogin.getContentPane().add(txtServerIP);
 		
 		txtPort = new JTextField();
 		txtPort.setColumns(10);
 		txtPort.setBounds(110, 150, 240, 20);
+		txtPort.setText("1883");
 		frmMQTTLogin.getContentPane().add(txtPort);
 		
 		JRadioButton rdbtnUnverschluesselt = new JRadioButton("unverschlüsselt");
 		rdbtnUnverschluesselt.setBounds(30, 200, 130, 20);
+		rdbtnUnverschluesselt.setSelected(true);
 		frmMQTTLogin.getContentPane().add(rdbtnUnverschluesselt);
 		
 		
@@ -113,6 +115,10 @@ public class Gui1 {
 		JButton btnVerbinden = new JButton("Verbinden");
 		btnVerbinden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(!txtServerIP.getText().matches("") && !txtPort.getText().matches("")) {
+					Singleton.getInstance().connection.connectClient(txtServerIP.getText(),
+							txtPort.getText(), txtUsername.getText(), txtPasswort.getText());
+				}
 				
 				Gui2 nw = new Gui2();
 				nw.NeuerScreen();
@@ -123,5 +129,6 @@ public class Gui1 {
 		});
 		btnVerbinden.setBounds(30, 330, 150, 25);
 		frmMQTTLogin.getContentPane().add(btnVerbinden);
+		frmMQTTLogin.setVisible(true);
 	}
 }
