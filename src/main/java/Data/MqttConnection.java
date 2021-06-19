@@ -6,11 +6,15 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.internal.ClientComms;
 
 public class MqttConnection extends Thread {
 
 	MqttClient client;
+	String topicsub;
+	boolean subscribed ;
 	public MqttConnection() {	
+		subscribed = false;
 	}
 
 	public void connectClient(String ip, String port, String username, String password) {
@@ -36,6 +40,28 @@ public class MqttConnection extends Thread {
 
 	}
 
+	public void subscribed(String topic) {
+		if (client.isConnected()) {
+			if(subscribed) {
+				try {
+					client.unsubscribe(topicsub);
+				} catch (MqttException e) {
+					e.printStackTrace();
+				}
+				subscribed = false;
+			}
+			try {
+				client.subscribe(topic);
+				topicsub = topic;
+				subscribed = true;
+			} catch (MqttException e) {
+				e.printStackTrace();
+			}
+			System.out.println("connected to  " + client.getCurrentServerURI().toString());
+		}
+		
+	}
+	
 	public void run() {
 		if (client.isConnected()) {
 			client.setCallback(new MqttCallback() {

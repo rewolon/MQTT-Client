@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -15,6 +17,9 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+
+import Data.Singleton;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
@@ -77,28 +82,64 @@ public class Gui2 extends JFrame {
 
 		panelTopics.setLayout(null);
 
-		JRadioButton rdbtnTemperature = new JRadioButton("Temperature");
+		final JRadioButton rdbtnTemperature = new JRadioButton("Temperature");
 		rdbtnTemperature.setBounds(w / 8, h * 8 / 36, 110, 25);
+		rdbtnTemperature.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Singleton.getInstance().connection.subscribed(rdbtnTemperature.getText());
+			}
+		});
 		panelTopics.add(rdbtnTemperature);
 
-		JRadioButton rdbtnPressure = new JRadioButton("Pressure");
+		final JRadioButton rdbtnPressure = new JRadioButton("Pressure");
 		rdbtnPressure.setBounds(w / 8, h * 4 / 9, 110, 25);
+		rdbtnPressure.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Singleton.getInstance().connection.subscribed(rdbtnPressure.getText());
+			}
+		});
 		panelTopics.add(rdbtnPressure);
 
-		JRadioButton rdbtnHumidity = new JRadioButton("Humidity");
+		final JRadioButton rdbtnHumidity = new JRadioButton("Humidity");
 		rdbtnHumidity.setBounds(w / 8, h * 2 / 3, 110, 25);
+		rdbtnHumidity.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Singleton.getInstance().connection.subscribed(rdbtnHumidity.getText());
+			}
+		});
 		panelTopics.add(rdbtnHumidity);
 
-		JRadioButton rdbtnAccelleration = new JRadioButton("Accelleration");
+		final JRadioButton rdbtnAccelleration = new JRadioButton("Accelleration");
 		rdbtnAccelleration.setBounds(w * 4 / 6, h * 8 / 36, 110, 25);
+		rdbtnAccelleration.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Singleton.getInstance().connection.subscribed(rdbtnAccelleration.getText());
+			}
+		});
 		panelTopics.add(rdbtnAccelleration);
 
-		JRadioButton rdbtnGyrodata = new JRadioButton("Gyrodata");
+		final JRadioButton rdbtnGyrodata = new JRadioButton("Gyrodata");
 		rdbtnGyrodata.setBounds(w * 4 / 6, h * 4 / 9, 110, 25);
+		rdbtnGyrodata.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Singleton.getInstance().connection.subscribed(rdbtnGyrodata.getText());
+			}
+		});
 		panelTopics.add(rdbtnGyrodata);
 
-		JRadioButton rdbtnMagdata = new JRadioButton("Magdata");
+		final JRadioButton rdbtnMagdata = new JRadioButton("Magdata");
 		rdbtnMagdata.setBounds(w * 4 / 6, h * 2 / 3, 110, 25);
+		rdbtnMagdata.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				Singleton.getInstance().connection.subscribed(rdbtnMagdata.getText());
+			}
+		});
 		panelTopics.add(rdbtnMagdata);
 
 		ButtonGroup groupe = new ButtonGroup();
