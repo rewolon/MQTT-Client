@@ -21,7 +21,6 @@ public class Singleton {
 		if (!(Singleton.instance == null)) {
 			Singleton.instance = new Singleton();
 		}
-		System.out.println("singleton");
 		return instance;
 	
 	}

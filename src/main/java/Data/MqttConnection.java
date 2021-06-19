@@ -30,7 +30,7 @@ public class MqttConnection extends Thread {
 		}
 
 		if (client.isConnected()) {
-
+			Singleton.getInstance().connection.start();
 			System.out.println("connected to  " + client.getCurrentServerURI().toString());
 		}
 
