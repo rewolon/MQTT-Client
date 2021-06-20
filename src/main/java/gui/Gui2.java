@@ -18,6 +18,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
+
 import Data.Singleton;
 
 import javax.swing.border.LineBorder;
@@ -32,8 +34,7 @@ import javax.swing.JTextPane;
 public class Gui2 extends JFrame {
 
 	private JPanel contentPane;
-
-	
+	public JTextPane txtletztenNachrichten;
 
 	public static void NeuerScreen() {
 		EventQueue.invokeLater(new Runnable() {
@@ -47,10 +48,7 @@ public class Gui2 extends JFrame {
 			}
 		});
 	}
-	
-	
-	
-	
+
 	public Gui2() {
 		setResizable(false);
 		setTitle("MQTT-Client");
@@ -85,7 +83,7 @@ public class Gui2 extends JFrame {
 		final JRadioButton rdbtnTemperature = new JRadioButton("Temperature");
 		rdbtnTemperature.setBounds(w / 8, h * 8 / 36, 110, 25);
 		rdbtnTemperature.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				Singleton.getInstance().connection.subscribed(rdbtnTemperature.getText());
 			}
@@ -95,7 +93,7 @@ public class Gui2 extends JFrame {
 		final JRadioButton rdbtnPressure = new JRadioButton("Pressure");
 		rdbtnPressure.setBounds(w / 8, h * 4 / 9, 110, 25);
 		rdbtnPressure.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				Singleton.getInstance().connection.subscribed(rdbtnPressure.getText());
 			}
@@ -105,7 +103,7 @@ public class Gui2 extends JFrame {
 		final JRadioButton rdbtnHumidity = new JRadioButton("Humidity");
 		rdbtnHumidity.setBounds(w / 8, h * 2 / 3, 110, 25);
 		rdbtnHumidity.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				Singleton.getInstance().connection.subscribed(rdbtnHumidity.getText());
 			}
@@ -115,7 +113,7 @@ public class Gui2 extends JFrame {
 		final JRadioButton rdbtnAccelleration = new JRadioButton("Accelleration");
 		rdbtnAccelleration.setBounds(w * 4 / 6, h * 8 / 36, 110, 25);
 		rdbtnAccelleration.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				Singleton.getInstance().connection.subscribed(rdbtnAccelleration.getText());
 			}
@@ -125,7 +123,7 @@ public class Gui2 extends JFrame {
 		final JRadioButton rdbtnGyrodata = new JRadioButton("Gyrodata");
 		rdbtnGyrodata.setBounds(w * 4 / 6, h * 4 / 9, 110, 25);
 		rdbtnGyrodata.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				Singleton.getInstance().connection.subscribed(rdbtnGyrodata.getText());
 			}
@@ -135,7 +133,7 @@ public class Gui2 extends JFrame {
 		final JRadioButton rdbtnMagdata = new JRadioButton("Magdata");
 		rdbtnMagdata.setBounds(w * 4 / 6, h * 2 / 3, 110, 25);
 		rdbtnMagdata.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				Singleton.getInstance().connection.subscribed(rdbtnMagdata.getText());
 			}
@@ -151,7 +149,26 @@ public class Gui2 extends JFrame {
 		groupe.add(rdbtnMagdata);
 
 		JButton btnVerbindungTrennen = new JButton("Verbindung trennen");
-		btnVerbindungTrennen.setBounds(w * 12 / 100, h * 88 / 100, w*3/4, 25);
+		btnVerbindungTrennen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				// Gui2 schließen, Gui1 wieder öffnen, mosquitto.org disconnecten
+
+//				Singleton.getInstance().connection.disconnect();
+//				System.out.println("disconnected");
+//				Singleton.getInstance().gui1.frmMQTTLogin.setVisible(true);
+//				dispose();
+
+				// this.setVisible(false);
+				// sampleClient.disconnect();
+				// System.out.println("Disconnected");
+				// System.exit(0);
+
+				// this.dispose();
+
+			}
+		});
+		btnVerbindungTrennen.setBounds(w * 12 / 100, h * 88 / 100, w * 3 / 4, 25);
 		panelTopics.add(btnVerbindungTrennen);
 
 		JPanel panelTopicNachrichten = new JPanel();
@@ -160,8 +177,8 @@ public class Gui2 extends JFrame {
 		contentPane.add(panelTopicNachrichten);
 		panelTopicNachrichten.setLayout(null);
 
-		JTextPane txtletztenNachrichten = new JTextPane();
-
+		 txtletztenNachrichten = new JTextPane();
+		
 		Border blackline2 = BorderFactory.createLineBorder(Color.black);
 		TitledBorder title2 = BorderFactory.createTitledBorder(blackline2, "Die letzten 10 Nachrichten");
 		title2.setTitleJustification(TitledBorder.CENTER);
@@ -170,26 +187,16 @@ public class Gui2 extends JFrame {
 
 		txtletztenNachrichten.setSize(panelTopicNachrichten.getSize());
 		panelTopicNachrichten.add(txtletztenNachrichten);
-		
-		
-		
-		
+
 		JPanel panelGraph = new JPanel();
-		panelGraph.setBounds(getWidth()*1/4, 0, getWidth()*3/4 - 6, getHeight() - 30);
+		panelGraph.setBounds(getWidth() * 1 / 4, 0, getWidth() * 3 / 4 - 6, getHeight() - 30);
 		contentPane.add(panelGraph);
 		panelGraph.setLayout(null);
-		
+
 		Border blackline3 = BorderFactory.createLineBorder(Color.black);
 		TitledBorder title3 = BorderFactory.createTitledBorder(blackline3, "Graph");
 		title3.setTitleJustification(TitledBorder.CENTER);
 		panelGraph.setBorder(title3);
-		
-		
-		
-		
-		
-		
-		
 
 	}
 }

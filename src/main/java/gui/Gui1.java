@@ -15,7 +15,7 @@ import Data.Singleton;
 
 public class Gui1 extends Thread {
 
-	private JFrame frmMQTTLogin;
+	public JFrame frmMQTTLogin;
 	private JTextField txtUsername;
 	private JTextField txtPasswort;
 	private JTextField txtServerIP;

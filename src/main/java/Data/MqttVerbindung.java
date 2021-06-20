@@ -8,12 +8,12 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.internal.ClientComms;
 
-public class MqttConnection extends Thread {
+public class MqttVerbindung extends Thread {
 
-	MqttClient client;
-	String topicsub;
-	boolean subscribed ;
-	public MqttConnection() {	
+	public MqttClient client;
+	public String topicsub;
+	public boolean subscribed ;
+	public MqttVerbindung() {	
 		subscribed = false;
 	}
 
@@ -62,11 +62,25 @@ public class MqttConnection extends Thread {
 		
 	}
 	
+	
+	public void disconnect() {
+//				Singleton.getInstance().connection.stop();
+				try {
+					client.disconnect();
+				} catch (MqttException e) {
+					e.printStackTrace();
+				}
+				
+	}
+	
 	public void run() {
 		if (client.isConnected()) {
 			client.setCallback(new MqttCallback() {
 
 				public void messageArrived(String topic, MqttMessage message) throws Exception {
+					
+					Singleton.getInstance().gui2.txtletztenNachrichten.setText(topic + message);
+					
 					System.out.println("Topic: " + topic + " Message: " + message);
 
 				}
@@ -124,11 +138,8 @@ public class MqttConnection extends Thread {
 //	                });
 //	                
 //	                
-//	                
-//	                
-//	                
-//	                
-//	                
+//	
+//	
 //	                
 //	                System.out.println("Connecting to broker: "+broker);
 //	                sampleClient.connect(connOpts);
@@ -141,9 +152,9 @@ public class MqttConnection extends Thread {
 //	                
 //	                sampleClient.publish(topic, message);
 //	                System.out.println("Message published");
-//	                //sampleClient.disconnect();
-//	                //System.out.println("Disconnected");
-//	                //System.exit(0);
+//	                sampleClient.disconnect();
+//	                System.out.println("Disconnected");
+//	                System.exit(0);
 //	            } catch(MqttException me) {
 //	                System.out.println("reason "+me.getReasonCode());
 //	                System.out.println("msg "+me.getMessage());
