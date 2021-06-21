@@ -1,6 +1,6 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -9,32 +9,21 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-import org.eclipse.paho.client.mqttv3.MqttException;
-
 import Data.Singleton;
-
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.MatteBorder;
-import javax.swing.JRadioButton;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JTextPane;
 
 public class Gui2 extends JFrame {
 
 	private JPanel contentPane;
-	public JTextPane txtletztenNachrichten;
+	public JPanel panelTopicNachrichten;
 
 	public static void NeuerScreen() {
 		EventQueue.invokeLater(new Runnable() {
@@ -152,19 +141,26 @@ public class Gui2 extends JFrame {
 		btnVerbindungTrennen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				// Gui2 schließen, Gui1 wieder öffnen, mosquitto.org disconnecten
+//				Gui2 schließen, Gui1 wieder öffnen, mosquitto.org disconnecten
 
-//				Singleton.getInstance().connection.disconnect();
-//				System.out.println("disconnected");
-//				Singleton.getInstance().gui1.frmMQTTLogin.setVisible(true);
-//				dispose();
-
-				// this.setVisible(false);
-				// sampleClient.disconnect();
-				// System.out.println("Disconnected");
-				// System.exit(0);
-
-				// this.dispose();
+				
+				
+				Singleton.getInstance().connection.disconnect();
+				System.out.println("disconnected");
+				Singleton.getInstance().gui1.frmMQTTLogin.setVisible(true);
+				dispose();
+				
+				
+				
+//				this.setVisible(false);
+//				sampleClient.disconnect();
+//				System.out.println("Disconnected");
+//				System.exit(0);
+//				JFrame.dispose();
+//				this.dispose();
+				
+				
+				
 
 			}
 		});
@@ -176,17 +172,14 @@ public class Gui2 extends JFrame {
 		panelTopicNachrichten.setBounds(0, getHeight() / 3, getWidth() / 4, getHeight() * 2 / 3 - 30);
 		contentPane.add(panelTopicNachrichten);
 		panelTopicNachrichten.setLayout(null);
-
-		 txtletztenNachrichten = new JTextPane();
 		
 		Border blackline2 = BorderFactory.createLineBorder(Color.black);
 		TitledBorder title2 = BorderFactory.createTitledBorder(blackline2, "Die letzten 10 Nachrichten");
 		title2.setTitleJustification(TitledBorder.CENTER);
-
-		txtletztenNachrichten.setBorder(title2);
-
-		txtletztenNachrichten.setSize(panelTopicNachrichten.getSize());
-		panelTopicNachrichten.add(txtletztenNachrichten);
+		
+		
+		JTextArea 
+		
 
 		JPanel panelGraph = new JPanel();
 		panelGraph.setBounds(getWidth() * 1 / 4, 0, getWidth() * 3 / 4 - 6, getHeight() - 30);

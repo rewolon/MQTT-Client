@@ -6,20 +6,20 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.internal.ClientComms;
 
 public class MqttVerbindung extends Thread {
 
 	public MqttClient client;
 	public String topicsub;
-	public boolean subscribed ;
-	public MqttVerbindung() {	
+	public boolean subscribed;
+
+	public MqttVerbindung() {
 		subscribed = false;
 	}
 
 	public void connectClient(String ip, String port, String username, String password) {
 		String serverip = "tcp://" + ip + ":" + port;
-		
+
 		try {
 			client = new MqttClient(serverip, "HAKIMODE");
 			MqttConnectOptions opt = new MqttConnectOptions();
@@ -42,7 +42,7 @@ public class MqttVerbindung extends Thread {
 
 	public void subscribed(String topic) {
 		if (client.isConnected()) {
-			if(subscribed) {
+			if (subscribed) {
 				try {
 					client.unsubscribe(topicsub);
 				} catch (MqttException e) {
@@ -59,39 +59,54 @@ public class MqttVerbindung extends Thread {
 			}
 			System.out.println("connected to  " + client.getCurrentServerURI().toString());
 		}
-		
+
 	}
-	
-	
+
 	public void disconnect() {
 //				Singleton.getInstance().connection.stop();
-				try {
-					client.disconnect();
-				} catch (MqttException e) {
-					e.printStackTrace();
-				}
-				
+		try {
+			client.disconnect();
+			client.close();
+		} catch (MqttException e) {
+			e.printStackTrace();
+
+		}
+
 	}
-	
+
 	public void run() {
 		if (client.isConnected()) {
 			client.setCallback(new MqttCallback() {
 
 				public void messageArrived(String topic, MqttMessage message) throws Exception {
+
+//					System.out.println(Singleton.getInstance().gui2.txtletztenNachrichten.getText());
+//					
+//					StyledDocument doc = (StyledDocument) Singleton.getInstance().gui2.txtletztenNachrichten.getDocument();
+//					
+//					doc.insertString(0, "hallo", null);
+//					Singleton.getInstance().gui2.panelTopicNachrichten.repaint();
+					
+							
+							
+					client.getCurrentServerURI();
 					
 					Singleton.getInstance().gui2.txtletztenNachrichten.setText(topic + message);
+//					txtletztenNachrichten.setText(topic + message);
+					
+					
 					
 					System.out.println("Topic: " + topic + " Message: " + message);
 
 				}
 
 				public void deliveryComplete(IMqttDeliveryToken token) {
-					// TODO Auto-generated method stub
+					System.out.println("");
 
 				}
 
 				public void connectionLost(Throwable cause) {
-					// TODO Auto-generated method stub
+					System.out.println("disconnect，you can reconnect: " + cause);
 
 				}
 			});

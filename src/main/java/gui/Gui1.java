@@ -7,6 +7,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -77,7 +78,7 @@ public class Gui1 extends Thread {
 		frmMQTTLogin.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
-		txtPasswort = new JTextField();
+		txtPasswort = new JPasswordField();
 		txtPasswort.setColumns(10);
 		txtPasswort.setBounds(110, 70, 240, 20);
 		frmMQTTLogin.getContentPane().add(txtPasswort);
@@ -120,10 +121,16 @@ public class Gui1 extends Thread {
 							txtPort.getText(), txtUsername.getText(), txtPasswort.getText());
 				}
 				
-				Gui2 nw = new Gui2();
-				nw.NeuerScreen();
+//				Singleton.getInstance().gui2 = new Gui2();
+//				Gui2 nw = new Gui2();
+//				nw.NeuerScreen();
+				
+				
+				
+				Singleton.getInstance().gui2.NeuerScreen();
 				
 				frmMQTTLogin.setVisible(false);
+				
 				
 			}
 		});

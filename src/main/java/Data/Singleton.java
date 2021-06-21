@@ -8,7 +8,7 @@ public class Singleton {
 	static Singleton instance;
 	public static MqttVerbindung connection;
 	public static Gui1 gui1;
-	Gui2 gui2;
+	public static Gui2 gui2;
 
 	private Singleton() {
 	}
@@ -18,6 +18,7 @@ public class Singleton {
 		connection = new MqttVerbindung();
 //		connection.start();
 		gui1 = new Gui1();
+		gui2 = new Gui2();
 	}
 
 	public static Singleton getInstance() {
@@ -27,4 +28,12 @@ public class Singleton {
 		return instance;
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
