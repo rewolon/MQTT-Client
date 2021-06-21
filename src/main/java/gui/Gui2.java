@@ -24,6 +24,7 @@ public class Gui2 extends JFrame {
 
 	private JPanel contentPane;
 	public JPanel panelTopicNachrichten;
+	public JTextArea txt;
 
 	public static void NeuerScreen() {
 		EventQueue.invokeLater(new Runnable() {
@@ -168,7 +169,7 @@ public class Gui2 extends JFrame {
 		panelTopics.add(btnVerbindungTrennen);
 
 		JPanel panelTopicNachrichten = new JPanel();
-
+		
 		panelTopicNachrichten.setBounds(0, getHeight() / 3, getWidth() / 4, getHeight() * 2 / 3 - 30);
 		contentPane.add(panelTopicNachrichten);
 		panelTopicNachrichten.setLayout(null);
@@ -178,8 +179,7 @@ public class Gui2 extends JFrame {
 		title2.setTitleJustification(TitledBorder.CENTER);
 		
 		
-		JTextArea 
-		
+
 
 		JPanel panelGraph = new JPanel();
 		panelGraph.setBounds(getWidth() * 1 / 4, 0, getWidth() * 3 / 4 - 6, getHeight() - 30);
@@ -190,6 +190,8 @@ public class Gui2 extends JFrame {
 		TitledBorder title3 = BorderFactory.createTitledBorder(blackline3, "Graph");
 		title3.setTitleJustification(TitledBorder.CENTER);
 		panelGraph.setBorder(title3);
+		
+	
 
 	}
 }

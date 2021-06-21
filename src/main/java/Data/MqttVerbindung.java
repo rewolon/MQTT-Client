@@ -90,8 +90,13 @@ public class MqttVerbindung extends Thread {
 							
 							
 					client.getCurrentServerURI();
+					for(int i = 0; i<10 ; i++) {
+						
+						Singleton.getInstance().gui2.txt.append("JALLAOSDKOAWJDOA" + i);
+						
+					}
 					
-					Singleton.getInstance().gui2.txtletztenNachrichten.setText(topic + message);
+					Singleton.getInstance().gui2.txt.setText(topic + message);
 //					txtletztenNachrichten.setText(topic + message);
 					
 					
