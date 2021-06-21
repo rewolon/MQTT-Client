@@ -1,5 +1,9 @@
 package Data;
 
+import java.util.Iterator;
+
+import javax.swing.text.StyledDocument;
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -12,6 +16,10 @@ public class MqttVerbindung extends Thread {
 	public MqttClient client;
 	public String topicsub;
 	public boolean subscribed;
+	
+	String[] test = new String[10];
+	int laufzahl = 0;
+	String ausgabe = "";
 
 	public MqttVerbindung() {
 		subscribed = false;
@@ -80,26 +88,70 @@ public class MqttVerbindung extends Thread {
 
 				public void messageArrived(String topic, MqttMessage message) throws Exception {
 
-//					System.out.println(Singleton.getInstance().gui2.txtletztenNachrichten.getText());
-//					
-//					StyledDocument doc = (StyledDocument) Singleton.getInstance().gui2.txtletztenNachrichten.getDocument();
-//					
-//					doc.insertString(0, "hallo", null);
-//					Singleton.getInstance().gui2.panelTopicNachrichten.repaint();
-					
-							
-							
-					client.getCurrentServerURI();
-					for(int i = 0; i<10 ; i++) {
+/*
+ * Array	Wert
+ * 0    =	1
+ * 1 	= 	2
+ * 2 	=	3
+ * 3 	= 	4				Erster Schritt
+ * 4 	= 	5
+ * 5 	= 	6
+ * 6 	= 	7
+ * 7 	=	8
+ * 8 	= 	9
+ * 9 	= 	10
+ * 
+ * Array	Wert
+ * 0    =	2
+ * 1 	= 	3
+ * 2 	=	4
+ * 3 	= 	5				nach laufzahl 10
+ * 4 	= 	6
+ * 5 	= 	7
+ * 6 	= 	8
+ * 7 	=	9
+ * 8 	= 	10
+ * 9 	= 	
+ * 
+ * Array	Wert
+ * 0    =	2
+ * 1 	= 	3
+ * 2 	=	4
+ * 3 	= 	5
+ * 4 	= 	6
+ * 5 	= 	7
+ * 6 	= 	8
+ * 7 	=	9
+ * 8 	= 	10
+ * 9 	= 	11
+ * 
+ * 
+ * 
+ * 					
+ */
+				
+					if (laufzahl == 10 ) {
+						System.out.print("10");
 						
-						Singleton.getInstance().gui2.txt.append("JALLAOSDKOAWJDOA" + i);
+						for(int i = 0 ; i < test.length-1; i++) {
+							test[i] = test[i +1];
+						}
 						
+						laufzahl = 9;
+						ausgabe = "";
 					}
 					
-					Singleton.getInstance().gui2.txt.setText(topic + message);
-//					txtletztenNachrichten.setText(topic + message);
+					test[laufzahl] = "Topic: " + topic + " Message: " + message + "\n";
+					laufzahl++;
+								
+					for(int i = 0 ; i < test.length; i++) {
+						if (test[i] != null) {
+							ausgabe += test[i];
+						}
+					}
 					
-					
+					Singleton.getInstance().gui2.txt.setText(ausgabe);
+					ausgabe = "";
 					
 					System.out.println("Topic: " + topic + " Message: " + message);
 

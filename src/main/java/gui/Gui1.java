@@ -127,7 +127,7 @@ public class Gui1 extends Thread {
 				
 				
 				
-				Singleton.getInstance().gui2.NeuerScreen();
+				Singleton.getInstance().gui2.init();
 				
 				frmMQTTLogin.setVisible(false);
 				

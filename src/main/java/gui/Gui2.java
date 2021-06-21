@@ -20,36 +20,39 @@ import javax.swing.border.TitledBorder;
 
 import Data.Singleton;
 
-public class Gui2 extends JFrame {
+public class Gui2 {
 
 	private JPanel contentPane;
 	public JPanel panelTopicNachrichten;
-	public JTextArea txt;
+	public JTextPane txt;
+	
+	
 
-	public static void NeuerScreen() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Gui2 frame = new Gui2();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void NeuerScreen() {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Gui2 frame = new Gui2();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
-	public Gui2() {
-		setResizable(false);
-		setTitle("MQTT-Client");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public void init() {
+		final JFrame frame = new JFrame();
+		frame.setResizable(false);
+		frame.setTitle("MQTT-Client");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-		setBounds(0, 0, screenSize.width, screenSize.height);
+		frame.setBounds(0, 0, screenSize.width, screenSize.height);
 
 		contentPane = new JPanel();
-		setContentPane(contentPane);
+		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panelTopics = new JPanel();
@@ -61,7 +64,7 @@ public class Gui2 extends JFrame {
 		// panelTopics.setBorder(BorderFactory.createTitledBorder(blackline, "Topics"));
 		// Für Titel auf der Linken seite
 
-		panelTopics.setBounds(0, 0, getWidth() * 1 / 4, getHeight() * 1 / 3);
+		panelTopics.setBounds(0, 0, frame.getWidth() * 1 / 4, frame.getHeight() * 1 / 3);
 
 		contentPane.add(panelTopics);
 
@@ -149,7 +152,7 @@ public class Gui2 extends JFrame {
 				Singleton.getInstance().connection.disconnect();
 				System.out.println("disconnected");
 				Singleton.getInstance().gui1.frmMQTTLogin.setVisible(true);
-				dispose();
+				frame.dispose();
 				
 				
 				
@@ -168,21 +171,35 @@ public class Gui2 extends JFrame {
 		btnVerbindungTrennen.setBounds(w * 12 / 100, h * 88 / 100, w * 3 / 4, 25);
 		panelTopics.add(btnVerbindungTrennen);
 
-		JPanel panelTopicNachrichten = new JPanel();
+		panelTopicNachrichten = new JPanel();
 		
-		panelTopicNachrichten.setBounds(0, getHeight() / 3, getWidth() / 4, getHeight() * 2 / 3 - 30);
+		txt = new JTextPane();
+		
+		panelTopicNachrichten.setBounds(0, frame.getHeight() / 3, frame.getWidth() / 4, frame.getHeight() * 2 / 3 - 30);
 		contentPane.add(panelTopicNachrichten);
 		panelTopicNachrichten.setLayout(null);
+		
+		
+
 		
 		Border blackline2 = BorderFactory.createLineBorder(Color.black);
 		TitledBorder title2 = BorderFactory.createTitledBorder(blackline2, "Die letzten 10 Nachrichten");
 		title2.setTitleJustification(TitledBorder.CENTER);
 		
+//		panelTopicNachrichten.setBorder(title2);
+		
+//		txt.setBorder(title2);
+
+		txt.setSize(panelTopicNachrichten.getSize());
+		txt.setEditable(false);
+		panelTopicNachrichten.add(txt);
+		
+		txt.setText("start");
 		
 
 
 		JPanel panelGraph = new JPanel();
-		panelGraph.setBounds(getWidth() * 1 / 4, 0, getWidth() * 3 / 4 - 6, getHeight() - 30);
+		panelGraph.setBounds(frame.getWidth() * 1 / 4, 0, frame.getWidth() * 3 / 4 - 6, frame.getHeight() - 30);
 		contentPane.add(panelGraph);
 		panelGraph.setLayout(null);
 
@@ -191,7 +208,14 @@ public class Gui2 extends JFrame {
 		title3.setTitleJustification(TitledBorder.CENTER);
 		panelGraph.setBorder(title3);
 		
+		frame.setVisible(true) ;
 	
 
+	}
+	
+	public void setTTT(String a) {
+		System.out.println(a);
+		txt.setText("IMINININASDINIAWDNIWNDIAWDINAWDAUWDAUDH");
+		
 	}
 }
