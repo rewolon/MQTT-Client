@@ -27,20 +27,6 @@ public class Gui2 {
 	public JTextPane txt;
 	
 	
-
-//	public static void NeuerScreen() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Gui2 frame = new Gui2();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	public void init() {
 		final JFrame frame = new JFrame();
 		frame.setResizable(false);
@@ -61,8 +47,6 @@ public class Gui2 {
 		title.setTitleJustification(TitledBorder.CENTER);
 		panelTopics.setBorder(title);
 
-		// panelTopics.setBorder(BorderFactory.createTitledBorder(blackline, "Topics"));
-		// Für Titel auf der Linken seite
 
 		panelTopics.setBounds(0, 0, frame.getWidth() * 1 / 4, frame.getHeight() * 1 / 3);
 
@@ -79,6 +63,7 @@ public class Gui2 {
 
 			public void actionPerformed(ActionEvent e) {
 				Singleton.getInstance().connection.subscribed(rdbtnTemperature.getText());
+				
 			}
 		});
 		panelTopics.add(rdbtnTemperature);
@@ -144,16 +129,11 @@ public class Gui2 {
 		JButton btnVerbindungTrennen = new JButton("Verbindung trennen");
 		btnVerbindungTrennen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-//				Gui2 schließen, Gui1 wieder öffnen, mosquitto.org disconnecten
-
-				
 				
 				Singleton.getInstance().connection.disconnect();
 				System.out.println("disconnected");
-				Singleton.getInstance().gui1.frmMQTTLogin.setVisible(true);
+//				Singleton.getInstance().gui1.frmMQTTLogin.setVisible(true);
 				frame.dispose();
-				
 				
 				
 //				this.setVisible(false);
@@ -162,8 +142,6 @@ public class Gui2 {
 //				System.exit(0);
 //				JFrame.dispose();
 //				this.dispose();
-				
-				
 				
 
 			}
@@ -194,7 +172,7 @@ public class Gui2 {
 		txt.setEditable(false);
 		panelTopicNachrichten.add(txt);
 		
-		txt.setText("start");
+		
 		
 
 
@@ -202,6 +180,9 @@ public class Gui2 {
 		panelGraph.setBounds(frame.getWidth() * 1 / 4, 0, frame.getWidth() * 3 / 4 - 6, frame.getHeight() - 30);
 		contentPane.add(panelGraph);
 		panelGraph.setLayout(null);
+		
+		//Leon sagte damit der Graph nicht verschoben ist muss ich ein Cart Layout machen
+		
 
 		Border blackline3 = BorderFactory.createLineBorder(Color.black);
 		TitledBorder title3 = BorderFactory.createTitledBorder(blackline3, "Graph");
@@ -213,9 +194,5 @@ public class Gui2 {
 
 	}
 	
-	public void setTTT(String a) {
-		System.out.println(a);
-		txt.setText("IMINININASDINIAWDNIWNDIAWDINAWDAUWDAUDH");
-		
-	}
+	
 }

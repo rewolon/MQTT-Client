@@ -9,6 +9,7 @@ public class Singleton {
 	public static MqttVerbindung connection;
 	public static Gui1 gui1;
 	public static Gui2 gui2;
+	public static Verschluesselung verschluesselung;
 
 	private Singleton() {
 	}
@@ -19,6 +20,9 @@ public class Singleton {
 //		connection.start();
 		gui1 = new Gui1();
 		gui2 = new Gui2();
+		
+		verschluesselung = new Verschluesselung();
+		
 	}
 
 	public static Singleton getInstance() {

@@ -22,25 +22,8 @@ public class Gui1 extends Thread {
 	private JTextField txtServerIP;
 	private JTextField txtPort;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Gui1 window = new Gui1();
-//					window.frmMQTTLogin.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
-	/**
-	 * Create the application.
-	 */
+
 	public Gui1() {
 		initialize();
 	}
@@ -100,17 +83,28 @@ public class Gui1 extends Thread {
 		rdbtnUnverschluesselt.setSelected(true);
 		frmMQTTLogin.getContentPane().add(rdbtnUnverschluesselt);
 		
+		rdbtnUnverschluesselt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtPort.setText("1883");
+			}
+		}); 
+	
+		
 		
 		ButtonGroup groupe = new ButtonGroup();
 		groupe.add(rdbtnUnverschluesselt);
-		
-		
 		
 		
 		JRadioButton rdbtnVerschluesselt = new JRadioButton("verschlüsselt");
 		rdbtnVerschluesselt.setBounds(30, 235, 130, 20);
 		frmMQTTLogin.getContentPane().add(rdbtnVerschluesselt);
 		groupe.add(rdbtnVerschluesselt);
+		rdbtnVerschluesselt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtPort.setText("8883");
+			}
+		});
+		
 		
 		
 		JButton btnVerbinden = new JButton("Verbinden");
@@ -120,12 +114,7 @@ public class Gui1 extends Thread {
 					Singleton.getInstance().connection.connectClient(txtServerIP.getText(),
 							txtPort.getText(), txtUsername.getText(), txtPasswort.getText());
 				}
-				
-//				Singleton.getInstance().gui2 = new Gui2();
-//				Gui2 nw = new Gui2();
-//				nw.NeuerScreen();
-				
-				
+								
 				
 				Singleton.getInstance().gui2.init();
 				
