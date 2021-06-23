@@ -16,29 +16,29 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class Graph extends JFrame {
   private static final long serialVersionUID = 6294689542092367723L;
-
-  public draw (String topic) {
-    
-
-    
-    XYDataset dataset = createDataset();
-
-    
-    JFreeChart chart = ChartFactory.createXYLineChart(
-        "XY Line Chart Example",
-        "X-Axis",
-        "Y-Axis",
-        dataset,
-        PlotOrientation.VERTICAL,
-        true, true, false);
-
-    
-    ChartPanel panel = new ChartPanel(chart);
-    setContentPane(panel);
-    
-    return 
-    
-  }
+//
+//  public draw (String topic) {
+//    
+//
+//    
+//    XYDataset dataset = createDataset();
+//
+//    
+//    JFreeChart chart = ChartFactory.createXYLineChart(
+//        "XY Line Chart Example",
+//        "X-Axis",
+//        "Y-Axis",
+//        dataset,
+//        PlotOrientation.VERTICAL,
+//        true, true, false);
+//
+//    
+//    ChartPanel panel = new ChartPanel(chart);
+//    setContentPane(panel);
+//    
+//    return 
+//    
+//  }
 
   private XYDataset createDataset() {
     XYSeriesCollection dataset = new XYSeriesCollection();

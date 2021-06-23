@@ -1,8 +1,5 @@
 package Data;
 
-import java.util.Iterator;
-
-import javax.swing.text.StyledDocument;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -53,8 +50,13 @@ public class MqttVerbindung extends Thread {
 					opt.setUserName(username);
 					opt.setPassword(password.toCharArray());
 				}
-				opt.setSocketFactory(Verschluesselung);
-				client.connect(opt);
+				try {
+					opt.setSocketFactory(Verschluesselung.getSocketFactory());
+					client.connect(opt);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 
 			} catch (MqttException e) {
 				e.printStackTrace();
